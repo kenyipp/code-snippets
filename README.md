@@ -1,11 +1,22 @@
 # Code snippets
 
-## Javascript
+## Index
 
-* [Convert Json to Csv](#convert-json-to-csv)
-* [Convert Csv to Json](#convert-csv-to-json)
+- Linux command
+	- [EADDRINUSE: address already in use - Kill Server](#kill-server-in-use)
+- Javascript
+	- [Convert Json to Csv](#convert-json-to-csv)
+	- [Convert Csv to Json](#convert-csv-to-json)
 
-### Convert Json to Csv
+## Kill Server in use
+```sh
+# Find the process PID
+ps aux | grep node
+# Kill the process
+kill -9 PID
+```
+
+## Convert Json to Csv
 
 By using [json2csv](https://www.npmjs.com/package/json2csv) module, we can easily to converts json into csv with column titles and proper line endings. 
 
@@ -53,7 +64,7 @@ const response = await axios.get(
 FileSaver.saveAs(new Blob([response.data]), "FILENAME");
 ```
 
-### Convert Csv to Json
+## Convert Csv to Json
 
 ``` js
 const csv2json = require("csv2json");
