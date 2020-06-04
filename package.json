@@ -10,6 +10,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"axios": "^0.19.2",
+		"csv2json": "^2.0.2",
 		"json2csv": "^5.0.1"
 	}
 }
