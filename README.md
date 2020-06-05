@@ -1,18 +1,20 @@
 # Code snippets
-A list of frequently used linux, javascript and python command.
+A list of frequently used linux, javascript and python command. 
 
 ## Index
 
-- Linux command
-	- [EADDRINUSE: address already in use - Kill Server](#kill-server-in-use)
-	- [Get the top 10 largest file](get-the-top-10-largest-file)
-- Javascript
-	- [Convert Json to Csv](#convert-json-to-csv)
-	- [Convert Csv to Json](#convert-csv-to-json)
-	- [MySql Commands](#mysql-commands)
+* Linux command
+  + [EADDRINUSE: address already in use - Kill Server](#kill-server-in-use)
+  + [Get the top 10 largest file](get-the-top-10-largest-file)
+* Javascript
+  + [JSON.stringify](#json-stringify)
+  + [Convert Json to Csv](#convert-json-to-csv)
+  + [Convert Csv to Json](#convert-csv-to-json)
+  + [MySql Commands](#mysql-commands)
 
 ### Kill Server in use
-```sh
+
+``` sh
 # Find the process PID
 ps aux | grep node
 # Kill the process
@@ -20,9 +22,69 @@ kill -9 PID
 ```
 
 ### Get the top 10 largest file
-```sh
+
+``` sh
 du -a /var | sort -n -r | head -n 10
 ```
+
+### JSON. stringify
+
+Given that we have a json
+
+``` js
+const json = {
+    a: "1",
+    b: "2",
+    c: "3"
+};
+```
+
+1. Retrieve on the key "a" and "b"
+
+``` js
+console.log(JSON.stringify(json, ["a", "b"])); 
+//{"a":"1","b":"2"}
+```
+
+2. Retrieve data using function
+
+``` js
+console.log(
+    JSON.stringify(json, function(key, value) {
+        if (key == "b")
+            return undefined;
+        return value;
+    })
+); 
+//{"a":"1","c":"3"}
+```
+
+3. Implement the transform using `toJSON method`
+``` js
+const json = {
+	a: "1",
+	b: "2",
+	c: "3",
+	toJSON: function(){
+		return "Hello world " + this.a;
+	}
+};
+console.log(JSON.stringify(json)); 
+// Hello world 1
+```
+
+4. It also apply on array
+``` js
+const json = {
+	a: "1",
+	b: "2",
+	c: "3"
+};
+const array = [json, json];
+console.log(JSON.stringify(array, ["a", "b"]));
+// [{"a":"1","b":"2"},{"a":"1","b":"2"}]
+```
+
 
 ### Convert Json to Csv
 
@@ -87,12 +149,16 @@ fs.createReadStream("data.csv")
 ```
 
 ### MySql Commands
+
 Update the auto increment of table
-```sh
+
+``` sh
 ALTER TABLE table_name AUTO_INCREMENT=1;
 ```
+
 [MySql WordCount function](https://stackoverflow.com/questions/12156970/mysql-count-word-in-sql-syntax)
-```sh
+
+``` sh
 DELIMITER $$
 CREATE FUNCTION wordcount(str TEXT)
 		RETURNS INT
