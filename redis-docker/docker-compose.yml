@@ -1,0 +1,27 @@
+version: "2"
+services:
+  master:
+    image: redis
+    container_name: master
+    restart: unless-stopped
+
+  slave-01:
+    image: redis
+    container_name: slave01
+    restart: unless-stopped
+    command: redis-server --port 6380 --slaveof master 6379
+    depends_on:
+      - master
+
+  slave-02:
+    image: redis
+    container_name: slave02
+    restart: unless-stopped
+    command: redis-server --port 6381 --slaveof master 6379
+    depends_on:
+      - master
+
+networks:
+  default:
+    external:
+      name: nginx
